@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import type { EditorTab } from './components/EditorPane'
 import { CUSTOM_CSS_STORAGE_KEY } from './lib/customCss'
+import { DIRECTIVES_STORAGE_KEY } from './lib/directivesConfig'
 import { DRAFT_STORAGE_KEY, DEFAULT_MARKDOWN } from './lib/draftStorage'
 import { FONT_SIZE_STORAGE_KEY } from './lib/fontSize'
 import { PRINT_THEME_STORAGE_KEY } from './lib/printTheme'
@@ -13,20 +14,24 @@ vi.mock('./components/EditorPane', () => ({
     filename,
     markdown,
     css,
+    directivesJson,
     fontSize,
     activeTab,
     onTabChange,
     onMarkdownChange,
     onCssChange,
+    onDirectivesChange,
   }: {
     filename: string
     markdown: string
     css: string
+    directivesJson: string
     fontSize: number
     activeTab: EditorTab
     onTabChange: (tab: EditorTab) => void
     onMarkdownChange: (value: string) => void
     onCssChange: (value: string) => void
+    onDirectivesChange: (value: string) => void
   }) => {
     const markdownLabel = filename.trim() || 'untitled.md'
 
@@ -49,6 +54,14 @@ vi.mock('./components/EditorPane', () => ({
           >
             style.css
           </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === 'directives'}
+            onClick={() => onTabChange('directives')}
+          >
+            directives.json
+          </button>
         </div>
         {activeTab === 'markdown' ? (
           <textarea
@@ -57,7 +70,8 @@ vi.mock('./components/EditorPane', () => ({
             value={markdown}
             onChange={(event) => onMarkdownChange(event.target.value)}
           />
-        ) : (
+        ) : null}
+        {activeTab === 'css' ? (
           <>
             <div role="toolbar" aria-label="CSS 빠른 삽입">
               <select
@@ -94,7 +108,14 @@ vi.mock('./components/EditorPane', () => ({
               onChange={(event) => onCssChange(event.target.value)}
             />
           </>
-        )}
+        ) : null}
+        {activeTab === 'directives' ? (
+          <textarea
+            aria-label="directives.json 편집기"
+            value={directivesJson}
+            onChange={(event) => onDirectivesChange(event.target.value)}
+          />
+        ) : null}
       </section>
     )
   },
@@ -248,5 +269,43 @@ describe('App', () => {
         'Loaded theme: Clean',
       )
     })
+  })
+
+  it('persists directives.json edits', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('tab', { name: 'directives.json' }))
+    const editor = await screen.findByLabelText('directives.json 편집기')
+    await user.clear(editor)
+    await user.paste(
+      JSON.stringify(
+        {
+          version: 1,
+          directives: [{ name: 'recipe', label: 'Recipe' }],
+        },
+        null,
+        2,
+      ),
+    )
+
+    await waitFor(() => {
+      expect(localStorage.getItem(DIRECTIVES_STORAGE_KEY)).toContain('recipe')
+    })
+  })
+
+  it('renders built-in directive callouts in the preview', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const editor = await screen.findByLabelText('Markdown 편집기')
+    await user.clear(editor)
+    await user.paste(`:::warning[조심]
+불 조심
+:::`)
+
+    expect(await screen.findByText('조심')).toBeInTheDocument()
+    expect(screen.getByText('불 조심')).toBeInTheDocument()
+    expect(document.querySelector('.md-directive--warning')).toBeTruthy()
   })
 })

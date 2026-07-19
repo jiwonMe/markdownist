@@ -8,6 +8,10 @@ export const DEFAULT_MARKDOWN = `# Markdownist
 
 인쇄 버튼을 누르면 미리보기가 A4 PDF로 저장됩니다.
 
+:::tip[시작 팁]
+\`directives.json\`에서 커스텀 directive를 추가하고, Markdown에서 \`:::name\`으로 사용할 수 있습니다.
+:::
+
 ---
 
 ## 페이지 나누기
@@ -19,6 +23,7 @@ export const DEFAULT_MARKDOWN = `# Markdownist
 | GFM 표 | 예 |
 | 체크리스트 | 예 |
 | 페이지 나누기 | 예 |
+| Directive | 예 |
 
 - [x] 미리보기
 - [x] 편집

@@ -219,3 +219,66 @@
   text-transform: uppercase;
   white-space: nowrap;
 }
+
+/* ── Directives / callouts ───────────────────────────────── */
+
+.markdown-body .md-directive--block {
+  margin: 0 0 var(--md-block-gap);
+  padding: 0.85em 1em;
+  border: 1px solid oklch(0 0 0 / 0.1);
+  border-left-width: 3px;
+  border-radius: 6px;
+  background: oklch(0.98 0.004 260);
+  font-family: var(--md-font-heading);
+}
+
+.markdown-body .md-directive__label {
+  margin: 0 0 0.4em;
+  color: var(--fg, oklch(0.22 0.012 260));
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.markdown-body .md-directive__body > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .md-directive__body > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .md-directive--inline {
+  padding: 0.05em 0.35em;
+  border: 1px solid oklch(0 0 0 / 0.1);
+  border-radius: 4px;
+  background: oklch(0.97 0.004 260);
+  font-family: var(--md-font-heading);
+  font-size: 0.92em;
+}
+
+.markdown-body .md-directive--note {
+  border-left-color: oklch(0.55 0.14 250);
+  background: oklch(0.97 0.02 250);
+}
+
+.markdown-body .md-directive--tip {
+  border-left-color: oklch(0.55 0.14 150);
+  background: oklch(0.97 0.02 150);
+}
+
+.markdown-body .md-directive--warning {
+  border-left-color: oklch(0.7 0.16 75);
+  background: oklch(0.98 0.03 85);
+}
+
+.markdown-body .md-directive--important {
+  border-left-color: oklch(0.55 0.18 25);
+  background: oklch(0.97 0.03 25);
+}
+
+.markdown-body .md-directive--aside {
+  border-left-color: oklch(0.5 0.02 260);
+  background: oklch(0.975 0.006 260);
+}

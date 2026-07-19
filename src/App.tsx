@@ -3,6 +3,7 @@ import { AppHeader } from './components/AppHeader'
 import type { EditorTab } from './components/EditorPane'
 import { MarkdownPreview } from './components/MarkdownPreview'
 import { useCustomCss } from './hooks/useCustomCss'
+import { useDirectivesConfig } from './hooks/useDirectivesConfig'
 import { useDraft } from './hooks/useDraft'
 import { useFontSize } from './hooks/useFontSize'
 import { usePrintTheme } from './hooks/usePrintTheme'
@@ -21,6 +22,12 @@ const EditorPane = lazy(async () => {
 function App() {
   const { filename, markdown, setFilename, setMarkdown } = useDraft()
   const { css, setCss } = useCustomCss()
+  const {
+    directivesJson,
+    setDirectivesJson,
+    config: directivesConfig,
+    parseError: directivesError,
+  } = useDirectivesConfig()
   const {
     fontSize,
     canDecrease,
@@ -53,6 +60,7 @@ function App() {
           fontSize={fontSize}
           printTheme={printTheme}
           customCss={css}
+          directivesConfig={directivesConfig}
         />
         <div className="app-split no-print" aria-hidden="true" />
         <Suspense
@@ -66,11 +74,14 @@ function App() {
             filename={filename}
             markdown={markdown}
             css={css}
+            directivesJson={directivesJson}
+            directivesError={directivesError}
             fontSize={fontSize}
             activeTab={editorTab}
             onTabChange={setEditorTab}
             onMarkdownChange={setMarkdown}
             onCssChange={setCss}
+            onDirectivesChange={setDirectivesJson}
           />
         </Suspense>
       </main>

@@ -10,17 +10,20 @@ import {
 import { formatPrintThemeAsCustomCss } from '../lib/printThemeCss'
 import '../monaco/setupMonaco'
 
-export type EditorTab = 'markdown' | 'css'
+export type EditorTab = 'markdown' | 'css' | 'directives'
 
 type EditorPaneProps = {
   filename: string
   markdown: string
   css: string
+  directivesJson: string
+  directivesError: string | null
   fontSize: number
   activeTab: EditorTab
   onTabChange: (tab: EditorTab) => void
   onMarkdownChange: (value: string) => void
   onCssChange: (value: string) => void
+  onDirectivesChange: (value: string) => void
 }
 
 function tabLabel(filename: string): string {
@@ -32,14 +35,33 @@ export function EditorPane({
   filename,
   markdown,
   css,
+  directivesJson,
+  directivesError,
   fontSize,
   activeTab,
   onTabChange,
   onMarkdownChange,
   onCssChange,
+  onDirectivesChange,
 }: EditorPaneProps) {
   const markdownTabLabel = tabLabel(filename)
   const isMarkdown = activeTab === 'markdown'
+  const isCss = activeTab === 'css'
+  const isDirectives = activeTab === 'directives'
+
+  const editorValue = isMarkdown
+    ? markdown
+    : isCss
+      ? css
+      : directivesJson
+
+  const editorLanguage = isMarkdown ? 'markdown' : isCss ? 'css' : 'json'
+
+  const editorPath = isMarkdown
+    ? `markdownist://${markdownTabLabel}`
+    : isCss
+      ? 'markdownist://style.css'
+      : 'markdownist://directives.json'
 
   return (
     <section className="editor-pane no-print" aria-label="편집기">
@@ -63,21 +85,37 @@ export function EditorPane({
         <button
           type="button"
           className={
-            !isMarkdown
+            isCss
               ? 'editor-pane__tab editor-pane__tab--active'
               : 'editor-pane__tab'
           }
           role="tab"
           id="editor-tab-css"
-          aria-selected={!isMarkdown}
+          aria-selected={isCss}
           aria-controls="editor-panel"
-          tabIndex={!isMarkdown ? 0 : -1}
+          tabIndex={isCss ? 0 : -1}
           onClick={() => onTabChange('css')}
         >
           style.css
         </button>
+        <button
+          type="button"
+          className={
+            isDirectives
+              ? 'editor-pane__tab editor-pane__tab--active'
+              : 'editor-pane__tab'
+          }
+          role="tab"
+          id="editor-tab-directives"
+          aria-selected={isDirectives}
+          aria-controls="editor-panel"
+          tabIndex={isDirectives ? 0 : -1}
+          onClick={() => onTabChange('directives')}
+        >
+          directives.json
+        </button>
       </div>
-      {!isMarkdown ? (
+      {isCss ? (
         <div
           className="editor-pane__snippets"
           role="toolbar"
@@ -130,31 +168,45 @@ export function EditorPane({
           </div>
         </div>
       ) : null}
+      {isDirectives ? (
+        <div className="editor-pane__directives-meta" role="status">
+          {directivesError ? (
+            <p className="editor-pane__directives-error">{directivesError}</p>
+          ) : (
+            <p className="editor-pane__directives-hint">
+              빌트인: note, tip, warning, important · 예:{' '}
+              <code>{':::aside[제목]'}…{':::'}</code>
+            </p>
+          )}
+        </div>
+      ) : null}
       <div
         className="editor-pane__body"
         id="editor-panel"
         role="tabpanel"
         aria-labelledby={
-          isMarkdown ? 'editor-tab-markdown' : 'editor-tab-css'
+          isMarkdown
+            ? 'editor-tab-markdown'
+            : isCss
+              ? 'editor-tab-css'
+              : 'editor-tab-directives'
         }
       >
         <Editor
           height="100%"
           width="100%"
-          path={
-            isMarkdown
-              ? `markdownist://${markdownTabLabel}`
-              : 'markdownist://style.css'
-          }
-          language={isMarkdown ? 'markdown' : 'css'}
+          path={editorPath}
+          language={editorLanguage}
           theme="vs-dark"
-          value={isMarkdown ? markdown : css}
+          value={editorValue}
           onChange={(nextValue) => {
             const value = nextValue ?? ''
             if (isMarkdown) {
               onMarkdownChange(value)
-            } else {
+            } else if (isCss) {
               onCssChange(value)
+            } else {
+              onDirectivesChange(value)
             }
           }}
           loading={
@@ -185,7 +237,7 @@ export function EditorPane({
             autoClosingQuotes: 'always',
             autoIndent: 'full',
             formatOnPaste: !isMarkdown,
-            formatOnType: !isMarkdown,
+            formatOnType: isCss,
             snippetSuggestions: 'inline',
             quickSuggestions: isMarkdown
               ? true
@@ -196,7 +248,7 @@ export function EditorPane({
                 },
             suggestOnTriggerCharacters: true,
             tabCompletion: 'on',
-            colorDecorators: !isMarkdown,
+            colorDecorators: isCss,
             scrollbar: {
               verticalScrollbarSize: 10,
               horizontalScrollbarSize: 10,
