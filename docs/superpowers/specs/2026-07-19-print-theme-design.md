@@ -21,7 +21,7 @@ Let users switch the **document look** (preview and printed PDF) among a small s
 | Decision | Choice |
 | --- | --- |
 | Skin depth | Full skin: typography, layout spacing, links, code, tables, blockquotes, page-break chrome |
-| Preset count | 4: `classic`, `clean`, `compact`, `report` |
+| Preset count | 8: style presets + purpose presets (`academic`, `memo`, `resume`, `blog`) |
 | Customization | Presets only |
 | Implementation | CSS variables + `data-print-theme` on `.markdown-body` |
 | Persistence | Separate `localStorage` key (same pattern as font size) |
@@ -35,6 +35,10 @@ Let users switch the **document look** (preview and printed PDF) among a small s
 | `clean` | Clean | All sans (Pretendard), airy spacing, quiet dividers |
 | `compact` | Compact | Sans, tighter line-height and block gaps, slightly wider measure |
 | `report` | Report | Sans, strong headings (hairline under h1/h2), emphasized tables/code |
+| `academic` | Academic | Serif body, airy line-height, quiet tables — papers |
+| `memo` | Memo | Narrow measure, small headings, dense spacing — short notes |
+| `resume` | Resume | Sans, strong heading rules, tight blocks — CV |
+| `blog` | Blog | Sans, wide leading, comfortable measure — long-form |
 
 ## Data model
 

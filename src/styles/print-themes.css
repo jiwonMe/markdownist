@@ -84,3 +84,124 @@
   --md-heading-rule-pad: 0.35em;
   --md-pagebreak-fg: var(--fg-secondary, oklch(0.5 0.014 260));
 }
+
+/* Academic — serene serif for papers */
+.markdown-body[data-print-theme='academic'] {
+  --md-font-body: var(--font-body);
+  --md-font-heading: var(--font-sans);
+  --md-font-heading-weight: 600;
+  --md-letter-spacing-heading: -0.015em;
+  --md-line-height: 1.8;
+  --md-block-gap: 1.1em;
+  --md-max-width: 700px;
+  --md-h1-size: 1.85em;
+  --md-h2-size: 1.4em;
+  --md-link: oklch(0.42 0.12 250);
+  --md-link-hover: oklch(0.35 0.14 250);
+  --md-code-bg: oklch(0.97 0.004 260);
+  --md-code-shadow: 0 0 0 1px oklch(0 0 0 / 0.04);
+  --md-pre-bg: oklch(0.975 0.003 260);
+  --md-quote-border: 2px solid oklch(0 0 0 / 0.1);
+  --md-quote-fg: var(--fg-muted, oklch(0.62 0.012 260));
+  --md-table-border: 1px solid oklch(0 0 0 / 0.08);
+  --md-table-header-bg: oklch(0.98 0.003 260);
+  --md-table-cell-pad: 6px 10px;
+  --md-hr: oklch(0 0 0 / 0.08);
+  --md-pagebreak-border: 1px dashed oklch(0 0 0 / 0.18);
+  --md-pagebreak-margin: 2.5rem 0;
+}
+
+/* Memo — narrow, dense notes */
+.markdown-body[data-print-theme='memo'] {
+  --md-font-body: var(--font-sans);
+  --md-font-heading: var(--font-sans);
+  --md-font-heading-weight: 600;
+  --md-letter-spacing-heading: -0.02em;
+  --md-line-height: 1.55;
+  --md-block-gap: 0.65em;
+  --md-max-width: 560px;
+  --md-h1-size: 1.5em;
+  --md-h2-size: 1.25em;
+  --md-h3-size: 1.1em;
+  --md-code-size: 0.85em;
+  --md-code-radius: 4px;
+  --md-pre-radius: 6px;
+  --md-pre-bg: oklch(0.97 0.004 260);
+  --md-quote-border: 2px solid oklch(0 0 0 / 0.16);
+  --md-quote-fg: var(--fg-secondary, oklch(0.5 0.014 260));
+  --md-table-cell-pad: 4px 8px;
+  --md-pagebreak-margin: 1.25rem 0;
+}
+
+.markdown-body[data-print-theme='memo'] h1,
+.markdown-body[data-print-theme='memo'] h2,
+.markdown-body[data-print-theme='memo'] h3,
+.markdown-body[data-print-theme='memo'] h4,
+.markdown-body[data-print-theme='memo'] h5,
+.markdown-body[data-print-theme='memo'] h6 {
+  margin: 1em 0 0.35em;
+}
+
+/* Resume — structured CV look */
+.markdown-body[data-print-theme='resume'] {
+  --md-font-body: var(--font-sans);
+  --md-font-heading: var(--font-sans);
+  --md-font-heading-weight: 700;
+  --md-letter-spacing-heading: -0.025em;
+  --md-line-height: 1.5;
+  --md-block-gap: 0.7em;
+  --md-max-width: 700px;
+  --md-h1-size: 1.65em;
+  --md-h2-size: 1.2em;
+  --md-h3-size: 1.05em;
+  --md-link: var(--fg, oklch(0.22 0.012 260));
+  --md-link-hover: oklch(0.35 0.02 260);
+  --md-code-bg: oklch(0.95 0.005 260);
+  --md-code-shadow: 0 0 0 1px oklch(0 0 0 / 0.08);
+  --md-pre-bg: oklch(0.96 0.004 260);
+  --md-quote-border: 2px solid oklch(0 0 0 / 0.14);
+  --md-table-border: 1px solid oklch(0 0 0 / 0.12);
+  --md-table-header-bg: oklch(0.93 0.008 260);
+  --md-table-cell-pad: 5px 10px;
+  --md-hr: oklch(0 0 0 / 0.16);
+  --md-heading-rule: oklch(0 0 0 / 0.18);
+  --md-heading-rule-pad: 0.25em;
+  --md-pagebreak-margin: 1.5rem 0;
+}
+
+.markdown-body[data-print-theme='resume'] h1,
+.markdown-body[data-print-theme='resume'] h2,
+.markdown-body[data-print-theme='resume'] h3,
+.markdown-body[data-print-theme='resume'] h4,
+.markdown-body[data-print-theme='resume'] h5,
+.markdown-body[data-print-theme='resume'] h6 {
+  margin: 1em 0 0.35em;
+}
+
+/* Blog — comfortable long-form reading */
+.markdown-body[data-print-theme='blog'] {
+  --md-font-body: var(--font-sans);
+  --md-font-heading: var(--font-sans);
+  --md-font-heading-weight: 700;
+  --md-letter-spacing-heading: -0.03em;
+  --md-line-height: 1.8;
+  --md-block-gap: 1.25em;
+  --md-max-width: 640px;
+  --md-h1-size: 2.1em;
+  --md-h2-size: 1.55em;
+  --md-h3-size: 1.3em;
+  --md-link: oklch(0.48 0.18 260);
+  --md-link-hover: oklch(0.4 0.2 260);
+  --md-code-bg: oklch(0.96 0.006 260);
+  --md-code-radius: 6px;
+  --md-pre-bg: oklch(0.97 0.005 260);
+  --md-pre-radius: 12px;
+  --md-quote-border: 3px solid oklch(0.55 0.1 260 / 0.35);
+  --md-quote-bg: oklch(0.98 0.01 260);
+  --md-quote-fg: var(--fg-secondary, oklch(0.5 0.014 260));
+  --md-table-border: 1px solid oklch(0 0 0 / 0.08);
+  --md-table-header-bg: oklch(0.975 0.004 260);
+  --md-hr: oklch(0 0 0 / 0.1);
+  --md-pagebreak-margin: 2.5rem 0;
+  --md-pagebreak-border: 1px dashed oklch(0 0 0 / 0.18);
+}

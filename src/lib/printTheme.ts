@@ -1,4 +1,12 @@
-export type PrintThemeId = 'classic' | 'clean' | 'compact' | 'report'
+export type PrintThemeId =
+  | 'classic'
+  | 'clean'
+  | 'compact'
+  | 'report'
+  | 'academic'
+  | 'memo'
+  | 'resume'
+  | 'blog'
 
 export const PRINT_THEME_STORAGE_KEY = 'markdownist:print-theme:v1'
 
@@ -9,6 +17,10 @@ export const PRINT_THEME_OPTIONS: { id: PrintThemeId; label: string }[] = [
   { id: 'clean', label: 'Clean' },
   { id: 'compact', label: 'Compact' },
   { id: 'report', label: 'Report' },
+  { id: 'academic', label: 'Academic' },
+  { id: 'memo', label: 'Memo' },
+  { id: 'resume', label: 'Resume' },
+  { id: 'blog', label: 'Blog' },
 ]
 
 const PRINT_THEME_IDS = new Set<string>(

@@ -130,11 +130,11 @@ describe('App', () => {
     expect(article).toHaveAttribute('data-print-theme', 'classic')
 
     const themeSelect = screen.getByRole('combobox', { name: '인쇄 테마' })
-    await user.selectOptions(themeSelect, 'clean')
+    await user.selectOptions(themeSelect, 'academic')
 
-    expect(article).toHaveAttribute('data-print-theme', 'clean')
+    expect(article).toHaveAttribute('data-print-theme', 'academic')
     await waitFor(() => {
-      expect(localStorage.getItem(PRINT_THEME_STORAGE_KEY)).toBe('clean')
+      expect(localStorage.getItem(PRINT_THEME_STORAGE_KEY)).toBe('academic')
     })
   })
 })
