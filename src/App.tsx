@@ -1,6 +1,8 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { AppHeader } from './components/AppHeader'
+import type { EditorTab } from './components/EditorPane'
 import { MarkdownPreview } from './components/MarkdownPreview'
+import { useCustomCss } from './hooks/useCustomCss'
 import { useDraft } from './hooks/useDraft'
 import { useFontSize } from './hooks/useFontSize'
 import { usePrintTheme } from './hooks/usePrintTheme'
@@ -11,13 +13,14 @@ import './styles/markdown.css'
 import './styles/print-themes.css'
 import './styles/print.css'
 
-const MarkdownEditor = lazy(async () => {
-  const module = await import('./components/MarkdownEditor')
-  return { default: module.MarkdownEditor }
+const EditorPane = lazy(async () => {
+  const module = await import('./components/EditorPane')
+  return { default: module.EditorPane }
 })
 
 function App() {
   const { filename, markdown, setFilename, setMarkdown } = useDraft()
+  const { css, setCss } = useCustomCss()
   const {
     fontSize,
     canDecrease,
@@ -26,6 +29,7 @@ function App() {
     increaseFontSize,
   } = useFontSize()
   const { theme: printTheme, setTheme: setPrintTheme } = usePrintTheme()
+  const [editorTab, setEditorTab] = useState<EditorTab>('markdown')
   const canPrint = markdown.trim().length > 0
 
   return (
@@ -48,6 +52,7 @@ function App() {
           markdown={markdown}
           fontSize={fontSize}
           printTheme={printTheme}
+          customCss={css}
         />
         <div className="app-split no-print" aria-hidden="true" />
         <Suspense
@@ -57,10 +62,15 @@ function App() {
             </section>
           }
         >
-          <MarkdownEditor
-            value={markdown}
+          <EditorPane
+            filename={filename}
+            markdown={markdown}
+            css={css}
             fontSize={fontSize}
-            onChange={setMarkdown}
+            activeTab={editorTab}
+            onTabChange={setEditorTab}
+            onMarkdownChange={setMarkdown}
+            onCssChange={setCss}
           />
         </Suspense>
       </main>

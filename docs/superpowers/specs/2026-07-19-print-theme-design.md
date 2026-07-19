@@ -94,8 +94,8 @@ Invalid or missing storage values fall back to `classic`.
 | `--md-block-gap` | Vertical rhythm between blocks |
 | `--md-max-width` | `.markdown-body` max-width |
 | `--md-link` / `--md-link-hover` | Anchor colors |
-| `--md-code-bg` / `--md-code-radius` / `--md-code-shadow` | Inline code |
-| `--md-pre-bg` / `--md-pre-radius` / `--md-pre-shadow` | Fenced blocks |
+| `--md-code-bg` / `--md-code-radius` / `--md-code-border` | Inline code (border, not shadow) |
+| `--md-pre-bg` / `--md-pre-radius` / `--md-pre-border` | Fenced blocks (border, not shadow) |
 | `--md-quote-border` / `--md-quote-fg` / `--md-quote-bg` | Blockquote |
 | `--md-table-border` / `--md-table-header-bg` / `--md-table-cell-pad` | Tables |
 | `--md-hr` | Horizontal rules |

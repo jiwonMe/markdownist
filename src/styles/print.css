@@ -60,6 +60,16 @@
     line-height: 1.6;
   }
 
+  /* Print-unfriendly effects: strip even if custom CSS injects them later */
+  .markdown-body,
+  .markdown-body * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
   .markdown-body h1,
   .markdown-body h2,
   .markdown-body h3,

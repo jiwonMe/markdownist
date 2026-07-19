@@ -14,16 +14,11 @@
   --md-link-hover: oklch(0.4 0.2 260);
   --md-code-bg: oklch(0.96 0.004 260);
   --md-code-radius: 5px;
-  --md-code-shadow: 0 0 0 1px oklch(0 0 0 / 0.05);
+  --md-code-border: 1px solid oklch(0 0 0 / 0.08);
   --md-code-size: 0.88em;
   --md-pre-bg: oklch(0.97 0.004 260);
   --md-pre-radius: 10px;
-  --md-pre-shadow: var(
-    --shadow-border,
-    0 0 0 1px oklch(0 0 0 / 0.06),
-    0 1px 2px -1px oklch(0 0 0 / 0.06),
-    0 2px 4px 0 oklch(0 0 0 / 0.04)
-  );
+  --md-pre-border: 1px solid oklch(0 0 0 / 0.1);
   --md-quote-border: 2px solid oklch(0 0 0 / 0.12);
   --md-quote-fg: var(--fg-secondary, oklch(0.5 0.014 260));
   --md-quote-bg: transparent;
@@ -135,9 +130,9 @@
 
 .markdown-body code {
   padding: 0.15em 0.4em;
+  border: var(--md-code-border);
   border-radius: var(--md-code-radius);
   background: var(--md-code-bg);
-  box-shadow: var(--md-code-shadow);
   font-family: var(--font-mono);
   font-size: var(--md-code-size);
   line-height: 1;
@@ -146,16 +141,16 @@
 .markdown-body pre {
   padding: 14px 16px;
   overflow: auto;
+  border: var(--md-pre-border);
   border-radius: var(--md-pre-radius);
   background: var(--md-pre-bg);
-  box-shadow: var(--md-pre-shadow);
   line-height: 1.45;
 }
 
 .markdown-body pre code {
   padding: 0;
+  border: 0;
   background: transparent;
-  box-shadow: none;
   white-space: pre;
   line-height: 1.45;
 }

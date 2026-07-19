@@ -10,8 +10,9 @@
   --md-link: var(--fg, oklch(0.22 0.012 260));
   --md-link-hover: oklch(0.35 0.02 260);
   --md-code-bg: oklch(0.975 0.003 260);
-  --md-code-shadow: 0 0 0 1px oklch(0 0 0 / 0.04);
+  --md-code-border: 1px solid oklch(0 0 0 / 0.06);
   --md-pre-bg: oklch(0.98 0.003 260);
+  --md-pre-border: 1px solid oklch(0 0 0 / 0.08);
   --md-quote-border: 1px solid oklch(0 0 0 / 0.1);
   --md-quote-fg: var(--fg-muted, oklch(0.62 0.012 260));
   --md-table-border: 1px solid oklch(0 0 0 / 0.06);
@@ -68,11 +69,9 @@
   --md-link: var(--fg, oklch(0.22 0.012 260));
   --md-link-hover: oklch(0.35 0.02 260);
   --md-code-bg: oklch(0.94 0.006 260);
-  --md-code-shadow: 0 0 0 1px oklch(0 0 0 / 0.1);
+  --md-code-border: 1px solid oklch(0 0 0 / 0.12);
   --md-pre-bg: oklch(0.955 0.005 260);
-  --md-pre-shadow:
-    0 0 0 1px oklch(0 0 0 / 0.1),
-    0 1px 2px -1px oklch(0 0 0 / 0.06);
+  --md-pre-border: 1px solid oklch(0 0 0 / 0.14);
   --md-quote-border: 3px solid oklch(0 0 0 / 0.18);
   --md-quote-bg: oklch(0.975 0.004 260);
   --md-quote-fg: var(--fg-secondary, oklch(0.5 0.014 260));
@@ -99,8 +98,9 @@
   --md-link: oklch(0.42 0.12 250);
   --md-link-hover: oklch(0.35 0.14 250);
   --md-code-bg: oklch(0.97 0.004 260);
-  --md-code-shadow: 0 0 0 1px oklch(0 0 0 / 0.04);
+  --md-code-border: 1px solid oklch(0 0 0 / 0.06);
   --md-pre-bg: oklch(0.975 0.003 260);
+  --md-pre-border: 1px solid oklch(0 0 0 / 0.08);
   --md-quote-border: 2px solid oklch(0 0 0 / 0.1);
   --md-quote-fg: var(--fg-muted, oklch(0.62 0.012 260));
   --md-table-border: 1px solid oklch(0 0 0 / 0.08);
@@ -157,8 +157,9 @@
   --md-link: var(--fg, oklch(0.22 0.012 260));
   --md-link-hover: oklch(0.35 0.02 260);
   --md-code-bg: oklch(0.95 0.005 260);
-  --md-code-shadow: 0 0 0 1px oklch(0 0 0 / 0.08);
+  --md-code-border: 1px solid oklch(0 0 0 / 0.1);
   --md-pre-bg: oklch(0.96 0.004 260);
+  --md-pre-border: 1px solid oklch(0 0 0 / 0.12);
   --md-quote-border: 2px solid oklch(0 0 0 / 0.14);
   --md-table-border: 1px solid oklch(0 0 0 / 0.12);
   --md-table-header-bg: oklch(0.93 0.008 260);
