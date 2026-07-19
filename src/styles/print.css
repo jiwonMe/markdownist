@@ -4,7 +4,7 @@
 
   @bottom-center {
     content: counter(page);
-    color: #656d76;
+    color: oklch(0.5 0.014 260);
     font-family: 'Toss Product Sans', Pretendard, sans-serif;
     font-size: 9pt;
   }

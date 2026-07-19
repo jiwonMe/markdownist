@@ -18,7 +18,7 @@ export function MarkdownEditor({
         height="100%"
         width="100%"
         language="markdown"
-        theme="vs"
+        theme="vs-dark"
         value={value}
         onChange={(nextValue) => onChange(nextValue ?? '')}
         loading={<div className="editor-pane__loading">편집기 불러오는 중…</div>}
@@ -27,14 +27,25 @@ export function MarkdownEditor({
           fontFamily:
             "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
           fontSize,
+          fontLigatures: true,
           lineNumbers: 'on',
+          lineNumbersMinChars: 3,
           minimap: { enabled: false },
           scrollBeyondLastLine: false,
           wordWrap: 'on',
           wrappingIndent: 'same',
           tabSize: 2,
-          renderLineHighlight: 'line',
-          padding: { top: 12, bottom: 12 },
+          renderLineHighlight: 'gutter',
+          smoothScrolling: true,
+          cursorBlinking: 'smooth',
+          cursorSmoothCaretAnimation: 'on',
+          padding: { top: 16, bottom: 16 },
+          overviewRulerLanes: 0,
+          hideCursorInOverviewRuler: true,
+          scrollbar: {
+            verticalScrollbarSize: 10,
+            horizontalScrollbarSize: 10,
+          },
         }}
       />
     </section>
