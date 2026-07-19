@@ -1,7 +1,7 @@
 # Print Theme Design
 
 Date: 2026-07-19  
-Status: Draft for review  
+Status: Approved — implemented  
 Scope: Preset print themes for Markdownist preview + print output
 
 ## Goal

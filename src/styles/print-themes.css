@@ -1,0 +1,86 @@
+/* Clean — airy all-sans */
+.markdown-body[data-print-theme='clean'] {
+  --md-font-body: var(--font-sans);
+  --md-font-heading: var(--font-sans);
+  --md-font-heading-weight: 600;
+  --md-letter-spacing-heading: -0.03em;
+  --md-line-height: 1.75;
+  --md-block-gap: 1.15em;
+  --md-max-width: 680px;
+  --md-link: var(--fg, oklch(0.22 0.012 260));
+  --md-link-hover: oklch(0.35 0.02 260);
+  --md-code-bg: oklch(0.975 0.003 260);
+  --md-code-shadow: 0 0 0 1px oklch(0 0 0 / 0.04);
+  --md-pre-bg: oklch(0.98 0.003 260);
+  --md-quote-border: 1px solid oklch(0 0 0 / 0.1);
+  --md-quote-fg: var(--fg-muted, oklch(0.62 0.012 260));
+  --md-table-border: 1px solid oklch(0 0 0 / 0.06);
+  --md-table-header-bg: transparent;
+  --md-hr: oklch(0 0 0 / 0.08);
+  --md-pagebreak-border: 1px dashed oklch(0 0 0 / 0.16);
+  --md-pagebreak-margin: 2.25rem 0;
+}
+
+.markdown-body[data-print-theme='clean'] th {
+  border-bottom: 1px solid oklch(0 0 0 / 0.14);
+  font-weight: 600;
+}
+
+/* Compact — denser sans for long docs */
+.markdown-body[data-print-theme='compact'] {
+  --md-font-body: var(--font-sans);
+  --md-font-heading: var(--font-sans);
+  --md-font-heading-weight: 600;
+  --md-letter-spacing-heading: -0.025em;
+  --md-line-height: 1.5;
+  --md-block-gap: 0.75em;
+  --md-max-width: 760px;
+  --md-h1-size: 1.75em;
+  --md-h2-size: 1.35em;
+  --md-h3-size: 1.15em;
+  --md-code-size: 0.84em;
+  --md-code-radius: 4px;
+  --md-pre-radius: 8px;
+  --md-quote-border: 1px solid oklch(0 0 0 / 0.14);
+  --md-table-cell-pad: 4px 8px;
+  --md-pagebreak-margin: 1.5rem 0;
+  --md-pagebreak-border: 1px dashed oklch(0 0 0 / 0.2);
+}
+
+.markdown-body[data-print-theme='compact'] h1,
+.markdown-body[data-print-theme='compact'] h2,
+.markdown-body[data-print-theme='compact'] h3,
+.markdown-body[data-print-theme='compact'] h4,
+.markdown-body[data-print-theme='compact'] h5,
+.markdown-body[data-print-theme='compact'] h6 {
+  margin: 1.1em 0 0.4em;
+}
+
+/* Report — strong structure for formal docs */
+.markdown-body[data-print-theme='report'] {
+  --md-font-body: var(--font-sans);
+  --md-font-heading: var(--font-sans);
+  --md-font-heading-weight: 700;
+  --md-letter-spacing-heading: -0.02em;
+  --md-line-height: 1.65;
+  --md-block-gap: 1em;
+  --md-max-width: 720px;
+  --md-link: var(--fg, oklch(0.22 0.012 260));
+  --md-link-hover: oklch(0.35 0.02 260);
+  --md-code-bg: oklch(0.94 0.006 260);
+  --md-code-shadow: 0 0 0 1px oklch(0 0 0 / 0.1);
+  --md-pre-bg: oklch(0.955 0.005 260);
+  --md-pre-shadow:
+    0 0 0 1px oklch(0 0 0 / 0.1),
+    0 1px 2px -1px oklch(0 0 0 / 0.06);
+  --md-quote-border: 3px solid oklch(0 0 0 / 0.18);
+  --md-quote-bg: oklch(0.975 0.004 260);
+  --md-quote-fg: var(--fg-secondary, oklch(0.5 0.014 260));
+  --md-table-border: 1px solid oklch(0 0 0 / 0.14);
+  --md-table-header-bg: oklch(0.94 0.008 260);
+  --md-table-cell-pad: 8px 12px;
+  --md-hr: oklch(0 0 0 / 0.14);
+  --md-heading-rule: oklch(0 0 0 / 0.14);
+  --md-heading-rule-pad: 0.35em;
+  --md-pagebreak-fg: var(--fg-secondary, oklch(0.5 0.014 260));
+}

@@ -1,10 +1,18 @@
+import {
+  PRINT_THEME_OPTIONS,
+  type PrintThemeId,
+  isPrintThemeId,
+} from '../lib/printTheme'
+
 type AppHeaderProps = {
   filename: string
   canPrint: boolean
+  printTheme: PrintThemeId
   fontSize: number
   canDecreaseFontSize: boolean
   canIncreaseFontSize: boolean
   onFilenameChange: (filename: string) => void
+  onPrintThemeChange: (theme: PrintThemeId) => void
   onDecreaseFontSize: () => void
   onIncreaseFontSize: () => void
   onPrint: () => void
@@ -13,10 +21,12 @@ type AppHeaderProps = {
 export function AppHeader({
   filename,
   canPrint,
+  printTheme,
   fontSize,
   canDecreaseFontSize,
   canIncreaseFontSize,
   onFilenameChange,
+  onPrintThemeChange,
   onDecreaseFontSize,
   onIncreaseFontSize,
   onPrint,
@@ -39,6 +49,29 @@ export function AppHeader({
           onChange={(event) => onFilenameChange(event.target.value)}
           spellCheck={false}
         />
+      </div>
+      <div className="app-header__theme">
+        <label htmlFor="print-theme-select" className="app-header__theme-label">
+          테마
+        </label>
+        <select
+          id="print-theme-select"
+          className="app-header__theme-select"
+          aria-label="인쇄 테마"
+          value={printTheme}
+          onChange={(event) => {
+            const next = event.target.value
+            if (isPrintThemeId(next)) {
+              onPrintThemeChange(next)
+            }
+          }}
+        >
+          {PRINT_THEME_OPTIONS.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </div>
       <div
         className="app-header__font-size"

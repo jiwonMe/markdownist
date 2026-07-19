@@ -3,10 +3,12 @@ import { AppHeader } from './components/AppHeader'
 import { MarkdownPreview } from './components/MarkdownPreview'
 import { useDraft } from './hooks/useDraft'
 import { useFontSize } from './hooks/useFontSize'
+import { usePrintTheme } from './hooks/usePrintTheme'
 import { requestPrint } from './lib/printDocument'
 import './styles/fonts.css'
 import './styles/app.css'
 import './styles/markdown.css'
+import './styles/print-themes.css'
 import './styles/print.css'
 
 const MarkdownEditor = lazy(async () => {
@@ -23,6 +25,7 @@ function App() {
     decreaseFontSize,
     increaseFontSize,
   } = useFontSize()
+  const { theme: printTheme, setTheme: setPrintTheme } = usePrintTheme()
   const canPrint = markdown.trim().length > 0
 
   return (
@@ -30,16 +33,22 @@ function App() {
       <AppHeader
         filename={filename}
         canPrint={canPrint}
+        printTheme={printTheme}
         fontSize={fontSize}
         canDecreaseFontSize={canDecrease}
         canIncreaseFontSize={canIncrease}
         onFilenameChange={setFilename}
+        onPrintThemeChange={setPrintTheme}
         onDecreaseFontSize={decreaseFontSize}
         onIncreaseFontSize={increaseFontSize}
         onPrint={() => requestPrint(filename)}
       />
       <main className="app-body">
-        <MarkdownPreview markdown={markdown} fontSize={fontSize} />
+        <MarkdownPreview
+          markdown={markdown}
+          fontSize={fontSize}
+          printTheme={printTheme}
+        />
         <div className="app-split no-print" aria-hidden="true" />
         <Suspense
           fallback={

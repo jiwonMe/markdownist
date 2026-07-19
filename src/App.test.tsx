@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import { DRAFT_STORAGE_KEY, DEFAULT_MARKDOWN } from './lib/draftStorage'
 import { FONT_SIZE_STORAGE_KEY } from './lib/fontSize'
+import { PRINT_THEME_STORAGE_KEY } from './lib/printTheme'
 
 vi.mock('./components/MarkdownEditor', () => ({
   MarkdownEditor: ({
@@ -119,5 +120,21 @@ describe('App', () => {
 
     await user.click(screen.getByRole('button', { name: '글자 크기 줄이기' }))
     expect(preview).toHaveStyle({ '--preview-font-size': '16px' })
+  })
+
+  it('applies and persists the selected print theme', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const article = document.querySelector('.markdown-body')
+    expect(article).toHaveAttribute('data-print-theme', 'classic')
+
+    const themeSelect = screen.getByRole('combobox', { name: '인쇄 테마' })
+    await user.selectOptions(themeSelect, 'clean')
+
+    expect(article).toHaveAttribute('data-print-theme', 'clean')
+    await waitFor(() => {
+      expect(localStorage.getItem(PRINT_THEME_STORAGE_KEY)).toBe('clean')
+    })
   })
 })

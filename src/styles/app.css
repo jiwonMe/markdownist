@@ -187,6 +187,53 @@ input {
   box-shadow: var(--shadow-border-focus);
 }
 
+/* ── Print theme select ──────────────────────────────────── */
+
+.app-header__theme {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-header__theme-label {
+  color: var(--fg-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.app-header__theme-select {
+  height: var(--control-height);
+  padding: 0 28px 0 10px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-muted);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%23666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  box-shadow: var(--shadow-border);
+  color: var(--fg);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  appearance: none;
+  cursor: pointer;
+  transition-property: box-shadow, background-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+
+.app-header__theme-select:hover {
+  box-shadow: var(--shadow-border-hover);
+}
+
+.app-header__theme-select:focus {
+  outline: none;
+  background-color: var(--bg-surface);
+  box-shadow: var(--shadow-border-focus);
+}
+
 /* ── Font size segmented control ─────────────────────────── */
 /* Outer 8px + 2px pad → inner buttons 6px (concentric) */
 

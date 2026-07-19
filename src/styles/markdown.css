@@ -1,10 +1,49 @@
+/* Classic defaults encoded as tokens on .markdown-body */
 .markdown-body {
-  max-width: 720px;
+  --md-font-body: var(--font-body);
+  --md-font-heading: var(--font-sans);
+  --md-font-heading-weight: 700;
+  --md-letter-spacing-heading: -0.02em;
+  --md-line-height: 1.7;
+  --md-block-gap: 1em;
+  --md-max-width: 720px;
+  --md-h1-size: 2em;
+  --md-h2-size: 1.5em;
+  --md-h3-size: 1.25em;
+  --md-link: oklch(0.48 0.18 260);
+  --md-link-hover: oklch(0.4 0.2 260);
+  --md-code-bg: oklch(0.96 0.004 260);
+  --md-code-radius: 5px;
+  --md-code-shadow: 0 0 0 1px oklch(0 0 0 / 0.05);
+  --md-code-size: 0.88em;
+  --md-pre-bg: oklch(0.97 0.004 260);
+  --md-pre-radius: 10px;
+  --md-pre-shadow: var(
+    --shadow-border,
+    0 0 0 1px oklch(0 0 0 / 0.06),
+    0 1px 2px -1px oklch(0 0 0 / 0.06),
+    0 2px 4px 0 oklch(0 0 0 / 0.04)
+  );
+  --md-quote-border: 2px solid oklch(0 0 0 / 0.12);
+  --md-quote-fg: var(--fg-secondary, oklch(0.5 0.014 260));
+  --md-quote-bg: transparent;
+  --md-table-border: 1px solid oklch(0 0 0 / 0.1);
+  --md-table-header-bg: oklch(0.97 0.004 260);
+  --md-table-cell-pad: 6px 10px;
+  --md-hr: oklch(0 0 0 / 0.1);
+  --md-img-radius: 8px;
+  --md-pagebreak-border: 1px dashed oklch(0 0 0 / 0.22);
+  --md-pagebreak-fg: var(--fg-muted, oklch(0.62 0.012 260));
+  --md-pagebreak-margin: 2rem 0;
+  --md-heading-rule: transparent;
+  --md-heading-rule-pad: 0.2em;
+
+  max-width: var(--md-max-width);
   margin: 0 auto;
   color: var(--fg, oklch(0.22 0.012 260));
-  font-family: var(--font-body);
+  font-family: var(--md-font-body);
   font-size: var(--preview-font-size, 16px);
-  line-height: 1.7;
+  line-height: var(--md-line-height);
   word-wrap: break-word;
   overflow-wrap: anywhere;
 }
@@ -25,28 +64,34 @@
 .markdown-body h6 {
   margin: 1.4em 0 0.55em;
   color: var(--fg, oklch(0.22 0.012 260));
-  font-family: var(--font-sans);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--md-font-heading);
+  font-weight: var(--md-font-heading-weight);
+  letter-spacing: var(--md-letter-spacing-heading);
   line-height: 1.3;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+  padding-bottom: var(--md-heading-rule-pad);
+  border-bottom: 1px solid var(--md-heading-rule);
 }
 
 .markdown-body strong,
 .markdown-body b {
-  font-family: var(--font-sans);
+  font-family: var(--md-font-heading);
   font-weight: 700;
 }
 
 .markdown-body h1 {
-  font-size: 2em;
+  font-size: var(--md-h1-size);
 }
 
 .markdown-body h2 {
-  font-size: 1.5em;
+  font-size: var(--md-h2-size);
 }
 
 .markdown-body h3 {
-  font-size: 1.25em;
+  font-size: var(--md-h3-size);
 }
 
 .markdown-body p,
@@ -56,7 +101,7 @@
 .markdown-body pre,
 .markdown-body table,
 .markdown-body hr {
-  margin: 0 0 1em;
+  margin: 0 0 var(--md-block-gap);
 }
 
 .markdown-body ul,
@@ -69,7 +114,7 @@
 }
 
 .markdown-body a {
-  color: oklch(0.48 0.18 260);
+  color: var(--md-link);
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
   transition-property: color;
@@ -78,36 +123,32 @@
 }
 
 .markdown-body a:hover {
-  color: oklch(0.4 0.2 260);
+  color: var(--md-link-hover);
 }
 
 .markdown-body blockquote {
-  padding: 0.15em 0 0.15em 1em;
-  border-left: 2px solid oklch(0 0 0 / 0.12);
-  color: var(--fg-secondary, oklch(0.5 0.014 260));
+  padding: 0.35em 0.9em;
+  border-left: var(--md-quote-border);
+  background: var(--md-quote-bg);
+  color: var(--md-quote-fg);
 }
 
 .markdown-body code {
   padding: 0.15em 0.4em;
-  border-radius: 5px;
-  background: oklch(0.96 0.004 260);
-  box-shadow: 0 0 0 1px oklch(0 0 0 / 0.05);
+  border-radius: var(--md-code-radius);
+  background: var(--md-code-bg);
+  box-shadow: var(--md-code-shadow);
   font-family: var(--font-mono);
-  font-size: 0.88em;
+  font-size: var(--md-code-size);
   line-height: 1;
 }
 
 .markdown-body pre {
   padding: 14px 16px;
   overflow: auto;
-  border-radius: 10px;
-  background: oklch(0.97 0.004 260);
-  box-shadow: var(
-    --shadow-border,
-    0 0 0 1px oklch(0 0 0 / 0.06),
-    0 1px 2px -1px oklch(0 0 0 / 0.06),
-    0 2px 4px 0 oklch(0 0 0 / 0.04)
-  );
+  border-radius: var(--md-pre-radius);
+  background: var(--md-pre-bg);
+  box-shadow: var(--md-pre-shadow);
   line-height: 1.45;
 }
 
@@ -125,26 +166,26 @@
   border-collapse: collapse;
   display: block;
   overflow-x: auto;
-  font-family: var(--font-sans);
+  font-family: var(--md-font-heading);
   font-size: 0.8125em;
   line-height: 1.45;
 }
 
 .markdown-body th,
 .markdown-body td {
-  padding: 6px 10px;
-  border: 1px solid oklch(0 0 0 / 0.1);
+  padding: var(--md-table-cell-pad);
+  border: var(--md-table-border);
 }
 
 .markdown-body th {
-  background: oklch(0.97 0.004 260);
+  background: var(--md-table-header-bg);
   font-weight: 600;
 }
 
 .markdown-body img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: var(--md-img-radius);
   outline: 1px solid oklch(0 0 0 / 0.1);
   outline-offset: -1px;
 }
@@ -152,7 +193,7 @@
 .markdown-body hr {
   height: 1px;
   border: 0;
-  background: oklch(0 0 0 / 0.1);
+  background: var(--md-hr);
 }
 
 .markdown-body del {
@@ -162,9 +203,9 @@
 .markdown-body .page-break {
   position: relative;
   height: 0;
-  margin: 2rem 0;
+  margin: var(--md-pagebreak-margin);
   border: 0;
-  border-top: 1px dashed oklch(0 0 0 / 0.22);
+  border-top: var(--md-pagebreak-border);
 }
 
 .markdown-body .page-break::after {
@@ -174,7 +215,7 @@
   padding: 0 0.5rem;
   transform: translateX(-50%);
   background: var(--bg-surface, oklch(1 0 0));
-  color: var(--fg-muted, oklch(0.62 0.012 260));
+  color: var(--md-pagebreak-fg);
   content: '페이지 나누기';
   font-family: var(--font-sans);
   font-size: 0.6875rem;
