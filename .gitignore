@@ -27,3 +27,5 @@ dist-ssr
 # Alternate lockfiles (project uses npm)
 pnpm-lock.yaml
 yarn.lock
+.vercel
+.env*
