@@ -2,10 +2,11 @@ export const CUSTOM_CSS_STORAGE_KEY = 'markdownist:custom-css:v1'
 
 export const DEFAULT_CUSTOM_CSS = `/* style.css — 미리보기/인쇄 문서에만 적용됩니다.
  * Ctrl/Cmd+Space 로 선택자·토큰 자동완성
- * 위 칩(제목, 본문…)으로 자주 쓰는 블록을 넣을 수 있습니다.
+ * 위 칩(제목, 본문, aside…)으로 자주 쓰는 블록을 넣을 수 있습니다.
  *
  * 토큰 예: --md-line-height, --md-max-width, --md-link
  * 선택자 예: h1, p, a, code, pre, blockquote, table, :scope
+ * Directive: .md-directive--aside, .md-directive--note, .md-directive__label
  */
 
 :scope {

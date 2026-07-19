@@ -52,7 +52,9 @@ function App() {
         onPrintThemeChange={setPrintTheme}
         onDecreaseFontSize={decreaseFontSize}
         onIncreaseFontSize={increaseFontSize}
-        onPrint={() => requestPrint(filename)}
+        onPrint={() => {
+          void requestPrint(filename)
+        }}
       />
       <main className="app-body">
         <MarkdownPreview
@@ -75,6 +77,7 @@ function App() {
             markdown={markdown}
             css={css}
             directivesJson={directivesJson}
+            directivesConfig={directivesConfig}
             directivesError={directivesError}
             fontSize={fontSize}
             activeTab={editorTab}

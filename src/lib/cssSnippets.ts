@@ -1,8 +1,66 @@
+import {
+  BUILTIN_DIRECTIVES,
+  type DirectivesConfig,
+} from './directivesConfig'
+
 export type CssSnippet = {
   id: string
   label: string
   detail: string
   code: string
+}
+
+const DIRECTIVE_SNIPPET_STYLES: Record<
+  string,
+  { border: string; background: string }
+> = {
+  note: {
+    border: 'oklch(0.55 0.14 250)',
+    background: 'oklch(0.97 0.02 250)',
+  },
+  tip: {
+    border: 'oklch(0.55 0.14 150)',
+    background: 'oklch(0.97 0.02 150)',
+  },
+  warning: {
+    border: 'oklch(0.7 0.16 75)',
+    background: 'oklch(0.98 0.03 85)',
+  },
+  important: {
+    border: 'oklch(0.55 0.18 25)',
+    background: 'oklch(0.97 0.03 25)',
+  },
+  aside: {
+    border: 'oklch(0.5 0.02 260)',
+    background: 'oklch(0.975 0.006 260)',
+  },
+}
+
+const DEFAULT_DIRECTIVE_STYLE = {
+  border: 'oklch(0.55 0.1 260)',
+  background: 'oklch(0.97 0.015 260)',
+}
+
+/** CSS block for styling a single directive (`.md-directive--{name}`). */
+export function formatDirectiveAsCustomCss(name: string): string {
+  const style = DIRECTIVE_SNIPPET_STYLES[name] ?? DEFAULT_DIRECTIVE_STYLE
+  return `.md-directive--${name} {
+  border-left-color: ${style.border};
+  background: ${style.background};
+}
+`
+}
+
+/** Built-in + user directive chips for the style.css insert toolbar. */
+export function listDirectiveCssSnippets(
+  config: DirectivesConfig,
+): CssSnippet[] {
+  return [...BUILTIN_DIRECTIVES, ...config.directives].map((directive) => ({
+    id: `directive-${directive.name}`,
+    label: directive.name,
+    detail: `${directive.label} · .md-directive--${directive.name}`,
+    code: formatDirectiveAsCustomCss(directive.name),
+  }))
 }
 
 /** Quick-insert chips shown above the CSS editor. */
@@ -122,6 +180,22 @@ export const CSS_EDITOR_SNIPPETS: Array<{
   padding: 16px;
   border-radius: 8px;
   background: oklch(0.97 0.004 260);
+}`,
+  },
+  {
+    label: 'md-directive',
+    detail: 'callout / aside 베이스',
+    insertText: `.md-directive--block {
+  padding: 0.85em 1em;
+  border-left-width: 3px;
+  border-radius: 6px;
+}
+
+.md-directive__label {
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }`,
   },
 ]

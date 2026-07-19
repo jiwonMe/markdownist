@@ -9,7 +9,8 @@
 - Document/print styles should avoid drop shadows and other print-unfriendly effects; prefer borders. `@media print` strips box-shadow / text-shadow / filter on `.markdown-body`.
 - Editor pane has tabs for `{filename}.md`, `style.css`, and `directives.json`; custom CSS/directives persist separately from the draft.
 - Custom CSS is injected into preview/print via `@scope (.markdown-body)`. CSS tab can append print-theme token blocks.
-- Markdown directives use `remark-directive`: builtins note/tip/warning/important; user directives registered in `directives.json` as `{ name, label }` and styled via `.md-directive--{name}`.
+- Markdown directives use `remark-directive`: builtins note/tip/warning/important; user directives registered in `directives.json` as `{ name, label }` and styled via `.md-directive--{name}`. style.css insert chips auto-list builtins + user directives.
+- Math uses Upmath embedding (`$$...$$` + `i.upmath.me/latex.js`), not KaTeX/MathJax; script loads before React mount; preview re-processes `.markdown-body` (debounced); print waits for latex images.
 - When asked to ship a feature, prefers going through design → implement → verify end-to-end; often pairs “commit push” as a single follow-up.
 - Uses project skills under `.agents/skills` (better-ui / better-typography / better-colors), mirrored for Claude and Cursor via symlinks.
 

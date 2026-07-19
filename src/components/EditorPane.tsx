@@ -2,7 +2,9 @@ import Editor from '@monaco-editor/react'
 import {
   CSS_QUICK_SNIPPETS,
   appendCssSnippet,
+  listDirectiveCssSnippets,
 } from '../lib/cssSnippets'
+import type { DirectivesConfig } from '../lib/directivesConfig'
 import {
   PRINT_THEME_OPTIONS,
   isPrintThemeId,
@@ -17,6 +19,7 @@ type EditorPaneProps = {
   markdown: string
   css: string
   directivesJson: string
+  directivesConfig: DirectivesConfig
   directivesError: string | null
   fontSize: number
   activeTab: EditorTab
@@ -36,6 +39,7 @@ export function EditorPane({
   markdown,
   css,
   directivesJson,
+  directivesConfig,
   directivesError,
   fontSize,
   activeTab,
@@ -48,6 +52,7 @@ export function EditorPane({
   const isMarkdown = activeTab === 'markdown'
   const isCss = activeTab === 'css'
   const isDirectives = activeTab === 'directives'
+  const directiveSnippets = listDirectiveCssSnippets(directivesConfig)
 
   const editorValue = isMarkdown
     ? markdown
@@ -153,6 +158,19 @@ export function EditorPane({
           <div className="editor-pane__snippet-group">
             <span className="editor-pane__snippets-label">삽입</span>
             {CSS_QUICK_SNIPPETS.map((snippet) => (
+              <button
+                key={snippet.id}
+                type="button"
+                className="editor-pane__snippet"
+                title={snippet.detail}
+                onClick={() =>
+                  onCssChange(appendCssSnippet(css, snippet.code))
+                }
+              >
+                {snippet.label}
+              </button>
+            ))}
+            {directiveSnippets.map((snippet) => (
               <button
                 key={snippet.id}
                 type="button"
