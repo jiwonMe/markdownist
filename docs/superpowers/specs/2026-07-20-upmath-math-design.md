@@ -1,7 +1,7 @@
 # Upmath Math Design
 
 Date: 2026-07-20  
-Status: Approved — implementing  
+Status: Approved — implemented  
 Scope: LaTeX math in preview + print via Upmath embedding (not KaTeX/MathJax)
 
 ## Goal

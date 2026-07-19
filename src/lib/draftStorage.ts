@@ -12,6 +12,12 @@ export const DEFAULT_MARKDOWN = `# Markdownist
 \`directives.json\`에서 커스텀 directive를 추가하고, Markdown에서 \`:::name\`으로 사용할 수 있습니다.
 :::
 
+수식은 \`$$...$$\`로 씁니다 (Upmath): 인라인 $$E=mc^2$$.
+
+$$
+\\int_{-\\infty}^{\\infty} e^{-x^2}\\,dx = \\sqrt{\\pi}
+$$
+
 ---
 
 ## 페이지 나누기
@@ -24,6 +30,7 @@ export const DEFAULT_MARKDOWN = `# Markdownist
 | 체크리스트 | 예 |
 | 페이지 나누기 | 예 |
 | Directive | 예 |
+| 수식 (Upmath) | 예 |
 
 - [x] 미리보기
 - [x] 편집

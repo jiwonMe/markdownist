@@ -177,7 +177,7 @@
   font-weight: 600;
 }
 
-.markdown-body img {
+.markdown-body img:not(.latex-svg):not(.latex-png) {
   max-width: 100%;
   height: auto;
   border-radius: var(--md-img-radius);

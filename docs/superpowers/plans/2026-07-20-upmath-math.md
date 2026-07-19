@@ -36,9 +36,9 @@
 - Create: `src/lib/upmathLatex.ts`
 - Create: `src/lib/upmathLatex.test.ts`
 
-- [ ] **Step 1:** Write failing tests for `processMarkdownLatex` (skips code) and `waitForLatexImages`
-- [ ] **Step 2:** Implement `loadUpmathLatex`, `processMarkdownLatex`, `waitForLatexImages`, optional `flushMarkdownLatex` / pending-callback for print
-- [ ] **Step 3:** Pass tests
+- [x] **Step 1:** Write failing tests for `processMarkdownLatex` (skips code) and `waitForLatexImages`
+- [x] **Step 2:** Implement `loadUpmathLatex`, `processMarkdownLatex`, `waitForLatexImages`, optional `flushMarkdownLatex` / pending-callback for print
+- [x] **Step 3:** Pass tests
 
 ### Task 2: Wire preview + bootstrap
 
@@ -46,8 +46,8 @@
 - Modify: `src/main.tsx`
 - Modify: `src/components/MarkdownPreview.tsx`
 
-- [ ] **Step 1:** Await `loadUpmathLatex()` before `createRoot().render`
-- [ ] **Step 2:** Article ref + 300ms debounced `processMarkdownLatex` on markdown/css/theme changes that affect body
+- [x] **Step 1:** Await `loadUpmathLatex()` before `createRoot().render`
+- [x] **Step 2:** Article ref + 300ms debounced `processMarkdownLatex` on markdown/css/theme changes that affect body
 
 ### Task 3: Print wait + docs
 
@@ -55,6 +55,6 @@
 - Modify: `src/lib/printDocument.ts`, `src/lib/printDocument.test.ts`, `src/App.tsx`
 - Modify: `src/lib/draftStorage.ts`, `README.md`, `AGENTS.md`
 
-- [ ] **Step 1:** `requestPrint` async: process preview root, wait images (8s), then print
-- [ ] **Step 2:** Default markdown + README mention Upmath `$$`
-- [ ] **Step 3:** `npm test && npm run lint && npm run build`
+- [x] **Step 1:** `requestPrint` async: process preview root, wait images (8s), then print
+- [x] **Step 2:** Default markdown + README mention Upmath `$$`
+- [x] **Step 3:** `npm test && npm run lint && npm run build`

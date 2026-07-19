@@ -1,4 +1,9 @@
-import type { CSSProperties, ComponentPropsWithoutRef } from 'react'
+import {
+  useEffect,
+  useRef,
+  type CSSProperties,
+  type ComponentPropsWithoutRef,
+} from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkDirective from 'remark-directive'
 import remarkGfm from 'remark-gfm'
@@ -7,6 +12,10 @@ import type { DirectivesConfig } from '../lib/directivesConfig'
 import type { PrintThemeId } from '../lib/printTheme'
 import { remarkDirectives } from '../lib/remarkDirectives'
 import { remarkPageBreak } from '../lib/remarkPageBreak'
+import {
+  latexZoomForFontSize,
+  scheduleMarkdownLatex,
+} from '../lib/upmathLatex'
 import { DirectiveBlock } from './DirectiveBlock'
 
 type MarkdownPreviewProps = {
@@ -34,10 +43,20 @@ export function MarkdownPreview({
   customCss,
   directivesConfig,
 }: MarkdownPreviewProps) {
+  const articleRef = useRef<HTMLElement>(null)
   const style = {
     '--preview-font-size': `${fontSize}px`,
+    '--latex-zoom': String(latexZoomForFontSize(fontSize)),
   } as CSSProperties
   const scopedCss = wrapCustomCssForPreview(customCss)
+
+  useEffect(() => {
+    const article = articleRef.current
+    if (!article) {
+      return
+    }
+    scheduleMarkdownLatex(article)
+  }, [markdown, fontSize, printTheme, customCss, directivesConfig])
 
   return (
     <section className="preview-pane" aria-label="미리보기" style={style}>
@@ -45,7 +64,11 @@ export function MarkdownPreview({
         <style data-markdownist-custom-css>{scopedCss}</style>
       ) : null}
       <div className="preview-pane__scroll">
-        <article className="markdown-body" data-print-theme={printTheme}>
+        <article
+          ref={articleRef}
+          className="markdown-body"
+          data-print-theme={printTheme}
+        >
           <ReactMarkdown
             remarkPlugins={[
               remarkGfm,

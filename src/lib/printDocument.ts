@@ -1,8 +1,22 @@
 import { toPrintTitle } from './draftStorage'
+import {
+  flushMarkdownLatex,
+  waitForLatexImages,
+} from './upmathLatex'
 
-export function requestPrint(filename: string): void {
+function getPreviewMarkdownBody(): HTMLElement | null {
+  return document.querySelector<HTMLElement>('.markdown-body')
+}
+
+export async function requestPrint(filename: string): Promise<void> {
   const previousTitle = document.title
   const nextTitle = toPrintTitle(filename)
+  const preview = getPreviewMarkdownBody()
+
+  if (preview) {
+    flushMarkdownLatex(preview)
+    await waitForLatexImages(preview)
+  }
 
   const restoreTitle = () => {
     document.title = previousTitle
