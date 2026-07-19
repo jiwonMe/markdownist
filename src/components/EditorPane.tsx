@@ -83,48 +83,51 @@ export function EditorPane({
           role="toolbar"
           aria-label="CSS 빠른 삽입"
         >
-          <label className="editor-pane__theme-load">
-            <span className="editor-pane__snippets-label">테마</span>
-            <select
-              className="editor-pane__theme-load-select"
-              aria-label="테마를 style.css에 불러오기"
-              defaultValue=""
-              onChange={(event) => {
-                const value = event.target.value
-                event.target.value = ''
-                if (!isPrintThemeId(value)) {
-                  return
-                }
-                onCssChange(
-                  appendCssSnippet(css, formatPrintThemeAsCustomCss(value)),
-                )
-              }}
-            >
-              <option value="" disabled>
-                불러오기…
-              </option>
-              {PRINT_THEME_OPTIONS.map((option) => (
-                <option key={option.id} value={option.id}>
-                  {option.label}
+          <div className="editor-pane__snippet-group">
+            <label className="editor-pane__theme-load">
+              <span className="editor-pane__snippets-label">테마</span>
+              <select
+                className="editor-pane__theme-load-select"
+                aria-label="테마를 style.css에 불러오기"
+                defaultValue=""
+                onChange={(event) => {
+                  const value = event.target.value
+                  event.target.value = ''
+                  if (!isPrintThemeId(value)) {
+                    return
+                  }
+                  onCssChange(
+                    appendCssSnippet(css, formatPrintThemeAsCustomCss(value)),
+                  )
+                }}
+              >
+                <option value="" disabled>
+                  불러오기…
                 </option>
-              ))}
-            </select>
-          </label>
-          <span className="editor-pane__snippets-divider" aria-hidden="true" />
-          <span className="editor-pane__snippets-label">삽입</span>
-          {CSS_QUICK_SNIPPETS.map((snippet) => (
-            <button
-              key={snippet.id}
-              type="button"
-              className="editor-pane__snippet"
-              title={snippet.detail}
-              onClick={() =>
-                onCssChange(appendCssSnippet(css, snippet.code))
-              }
-            >
-              {snippet.label}
-            </button>
-          ))}
+                {PRINT_THEME_OPTIONS.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div className="editor-pane__snippet-group">
+            <span className="editor-pane__snippets-label">삽입</span>
+            {CSS_QUICK_SNIPPETS.map((snippet) => (
+              <button
+                key={snippet.id}
+                type="button"
+                className="editor-pane__snippet"
+                title={snippet.detail}
+                onClick={() =>
+                  onCssChange(appendCssSnippet(css, snippet.code))
+                }
+              >
+                {snippet.label}
+              </button>
+            ))}
+          </div>
         </div>
       ) : null}
       <div
