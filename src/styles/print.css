@@ -1,0 +1,128 @@
+@page {
+  size: A4 portrait;
+  margin: 16mm 18mm 18mm;
+
+  @bottom-center {
+    content: counter(page);
+    color: #656d76;
+    font-family: 'Toss Product Sans', Pretendard, sans-serif;
+    font-size: 9pt;
+  }
+}
+
+@media print {
+  :root,
+  html,
+  body,
+  #root {
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body {
+    min-width: 0 !important;
+  }
+
+  .no-print,
+  .app-header,
+  .editor-pane,
+  .app-split {
+    display: none !important;
+  }
+
+  .app-shell,
+  .app-body,
+  .preview-pane,
+  .preview-pane__scroll,
+  .markdown-body {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  .preview-pane__scroll {
+    padding: 0 !important;
+  }
+
+  .markdown-body {
+    max-width: none;
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--preview-font-size, 16px);
+    line-height: 1.6;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3,
+  .markdown-body h4,
+  .markdown-body h5,
+  .markdown-body h6 {
+    font-family: var(--font-sans);
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .markdown-body table,
+  .markdown-body strong,
+  .markdown-body b {
+    font-family: var(--font-sans);
+  }
+
+  .markdown-body p,
+  .markdown-body li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .markdown-body table,
+  .markdown-body blockquote,
+  .markdown-body img,
+  .markdown-body pre {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .markdown-body pre,
+  .markdown-body code,
+  .markdown-body a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .markdown-body pre {
+    white-space: pre-wrap;
+  }
+
+  .markdown-body .page-break {
+    display: block;
+    height: 0;
+    margin: 0;
+    border: 0;
+    background: transparent !important;
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .markdown-body .page-break::before,
+  .markdown-body .page-break::after {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+  }
+
+  /* 문서 끝의 --- / pagebreak 로 빈 마지막 페이지가 생기지 않게 함 */
+  .markdown-body .page-break:last-child {
+    display: none !important;
+    break-before: auto;
+    page-break-before: auto;
+  }
+}

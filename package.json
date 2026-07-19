@@ -1,0 +1,40 @@
+{
+  "name": "markdownist",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "monaco-editor": "^0.52.2",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@types/unist": "^3.0.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "jsdom": "^26.1.0",
+    "oxlint": "^1.71.0",
+    "typescript": "~6.0.2",
+    "unified": "^11.0.5",
+    "vite": "^8.1.1",
+    "vitest": "^4.1.10"
+  }
+}
