@@ -377,4 +377,20 @@ describe('App', () => {
     expect(screen.getByText('불 조심')).toBeInTheDocument()
     expect(document.querySelector('.md-directive--warning')).toBeTruthy()
   })
+
+  it('highlights fenced TypeScript code in the preview', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const editor = await screen.findByLabelText('Markdown 편집기')
+    await user.clear(editor)
+    await user.paste('```ts\nconst answer: number = 42\n```')
+
+    await waitFor(() => {
+      const code = document.querySelector('pre code.hljs')
+      expect(code).toBeTruthy()
+      expect(code?.className).toMatch(/language-ts|language-typescript/)
+      expect(code?.querySelector('.hljs-keyword, .hljs-number')).toBeTruthy()
+    })
+  })
 })

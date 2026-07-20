@@ -18,6 +18,12 @@ $$
 \\int_{-\\infty}^{\\infty} e^{-x^2}\\,dx = \\sqrt{\\pi}
 $$
 
+\`\`\`ts
+function greet(name: string): string {
+  return \`Hello, \${name}\`
+}
+\`\`\`
+
 ---
 
 ## 페이지 나누기
@@ -31,6 +37,7 @@ $$
 | 페이지 나누기 | 예 |
 | Directive | 예 |
 | 수식 (Upmath) | 예 |
+| 코드 하이라이트 | 예 |
 
 - [x] 미리보기
 - [x] 편집

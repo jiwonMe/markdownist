@@ -5,6 +5,7 @@ import {
   type ComponentPropsWithoutRef,
 } from 'react'
 import ReactMarkdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
 import remarkDirective from 'remark-directive'
 import remarkGfm from 'remark-gfm'
 import { wrapCustomCssForPreview } from '../lib/customCss'
@@ -76,6 +77,7 @@ export function MarkdownPreview({
               remarkDirectives,
               remarkPageBreak,
             ]}
+            rehypePlugins={[rehypeHighlight]}
             skipHtml
             components={{
               aside: ({ children, className, ...props }: AsideProps) => {
