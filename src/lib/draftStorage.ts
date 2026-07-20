@@ -12,7 +12,7 @@ export const DEFAULT_MARKDOWN = `# Markdownist
 \`directives.json\`에서 커스텀 directive를 추가하고, Markdown에서 \`:::name\`으로 사용할 수 있습니다.
 :::
 
-수식은 인라인 \`$...$\`, 블록 \`$$...$$\` (Upmath): 인라인 $E=mc^2$.
+수식은 인라인 \`$...$\` / \`\\(...\\)\`, 블록 \`$$...$$\` / \`\\[...\\]\` (Upmath): 인라인 $E=mc^2$.
 
 $$
 \\int_{-\\infty}^{\\infty} e^{-x^2}\\,dx = \\sqrt{\\pi}

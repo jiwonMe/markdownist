@@ -11,6 +11,7 @@ import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import { wrapCustomCssForPreview } from '../lib/customCss'
 import type { DirectivesConfig } from '../lib/directivesConfig'
+import { normalizeLatexDelimiters } from '../lib/normalizeLatexDelimiters'
 import type { PrintThemeId } from '../lib/printTheme'
 import { remarkDirectives } from '../lib/remarkDirectives'
 import { remarkMathToUpmath } from '../lib/remarkMathToUpmath'
@@ -52,6 +53,7 @@ export function MarkdownPreview({
     '--latex-zoom': String(latexZoomForFontSize(fontSize)),
   } as CSSProperties
   const scopedCss = wrapCustomCssForPreview(customCss)
+  const markdownForPreview = normalizeLatexDelimiters(markdown)
 
   useEffect(() => {
     const article = articleRef.current
@@ -59,7 +61,7 @@ export function MarkdownPreview({
       return
     }
     scheduleMarkdownLatex(article)
-  }, [markdown, fontSize, printTheme, customCss, directivesConfig])
+  }, [markdownForPreview, fontSize, printTheme, customCss, directivesConfig])
 
   return (
     <section className="preview-pane" aria-label="미리보기" style={style}>
@@ -129,7 +131,7 @@ export function MarkdownPreview({
               },
             }}
           >
-            {markdown}
+            {markdownForPreview}
           </ReactMarkdown>
         </article>
       </div>

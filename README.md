@@ -10,7 +10,7 @@ Markdown을 바로 인쇄할 수 있는 웹 서비스 MVP입니다.
 - `style.css` 커스텀 CSS는 미리보기·인쇄에 `@scope (.markdown-body)`로 주입
 - CSS 탭에서 기존 인쇄 테마 토큰을 `style.css` 끝에 불러와 편집 가능
 - Markdown directive: 빌트인 `note` / `tip` / `warning` / `important` + `directives.json` 커스텀
-- 수식: 인라인 `$...$` · 블록 `$$...$$` → [Upmath](https://i.upmath.me/#embedding) SVG/PNG (인쇄 전 이미지 로드 대기)
+- 수식: 인라인 `$...$` / `\(...\)` · 블록 `$$...$$` / `\[...\]` → [Upmath](https://i.upmath.me/#embedding) SVG/PNG (인쇄 전 이미지 로드 대기)
 - 코드 하이라이트: fenced code + `rehype-highlight` / highlight.js (라이트·인쇄용)
 - `react-markdown` + GFM (표, 체크리스트, 취소선)
 - 단독 줄 `<!-- pagebreak -->`로 명시적 페이지 나누기

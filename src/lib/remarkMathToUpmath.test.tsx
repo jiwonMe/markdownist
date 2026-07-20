@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import { describe, expect, it } from 'vitest'
+import { normalizeLatexDelimiters } from './normalizeLatexDelimiters'
 import { remarkMathToUpmath } from './remarkMathToUpmath'
 
 function renderMarkdown(markdown: string) {
@@ -11,7 +12,7 @@ function renderMarkdown(markdown: string) {
       remarkPlugins={[remarkGfm, remarkMath, remarkMathToUpmath]}
       skipHtml
     >
-      {markdown}
+      {normalizeLatexDelimiters(markdown)}
     </ReactMarkdown>,
   )
 }
@@ -37,5 +38,17 @@ $$`)
 
     expect(container.querySelector('em')).toBeNull()
     expect(container.textContent).toBe('hello $$J_{ij}$$ world')
+  })
+
+  it('supports \\( \\) inline and \\[ \\] display delimiters', () => {
+    const { container } = renderMarkdown(`inline \\(a_b\\) and
+
+\\[
+c_d
+\\]`)
+
+    expect(container.querySelector('em')).toBeNull()
+    expect(container.textContent).toContain('$$a_b$$')
+    expect(container.textContent).toMatch(/\$\$[\s\S]*c_d[\s\S]*\$\$/)
   })
 })
