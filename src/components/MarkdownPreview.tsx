@@ -8,10 +8,12 @@ import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 import remarkDirective from 'remark-directive'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 import { wrapCustomCssForPreview } from '../lib/customCss'
 import type { DirectivesConfig } from '../lib/directivesConfig'
 import type { PrintThemeId } from '../lib/printTheme'
 import { remarkDirectives } from '../lib/remarkDirectives'
+import { remarkMathToUpmath } from '../lib/remarkMathToUpmath'
 import { remarkPageBreak } from '../lib/remarkPageBreak'
 import {
   latexZoomForFontSize,
@@ -73,6 +75,8 @@ export function MarkdownPreview({
           <ReactMarkdown
             remarkPlugins={[
               remarkGfm,
+              remarkMath,
+              remarkMathToUpmath,
               remarkDirective,
               remarkDirectives,
               remarkPageBreak,

@@ -93,9 +93,9 @@ function maskDollarsInCode(root: HTMLElement): Array<{
     while (current) {
       const textNode = current as Text
       const value = textNode.nodeValue
-      if (value && value.includes('$$')) {
+      if (value && value.includes('$')) {
         masked.push({ node: textNode, value })
-        textNode.nodeValue = value.split('$$').join(CODE_DOLLAR_MASK + CODE_DOLLAR_MASK)
+        textNode.nodeValue = value.split('$').join(CODE_DOLLAR_MASK)
       }
       current = walker.nextNode()
     }
@@ -114,6 +114,74 @@ function restoreMaskedDollars(
   }
 }
 
+/**
+ * Upmath only recognizes `$$...$$`. Expand inline `$...$` (not already `$$`)
+ * so single-dollar math renders the same way. Leaves display `$$...$$` alone.
+ */
+export function expandInlineDollarMath(text: string): string {
+  let result = ''
+  let i = 0
+
+  while (i < text.length) {
+    if (text.startsWith('$$', i)) {
+      const end = text.indexOf('$$', i + 2)
+      if (end === -1) {
+        result += text.slice(i)
+        break
+      }
+      result += text.slice(i, end + 2)
+      i = end + 2
+      continue
+    }
+
+    if (text[i] === '$') {
+      const end = text.indexOf('$', i + 1)
+      if (end === -1 || text[end + 1] === '$') {
+        result += text[i]
+        i += 1
+        continue
+      }
+
+      const content = text.slice(i + 1, end)
+      if (content.length > 0 && !content.includes('\n')) {
+        result += `$$${content}$$`
+        i = end + 1
+        continue
+      }
+
+      result += text[i]
+      i += 1
+      continue
+    }
+
+    result += text[i]
+    i += 1
+  }
+
+  return result
+}
+
+function expandInlineDollarMathInTree(root: HTMLElement): void {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+  const textNodes: Text[] = []
+  let current = walker.nextNode()
+  while (current) {
+    textNodes.push(current as Text)
+    current = walker.nextNode()
+  }
+
+  for (const textNode of textNodes) {
+    const value = textNode.nodeValue
+    if (!value || !value.includes('$')) {
+      continue
+    }
+    const expanded = expandInlineDollarMath(value)
+    if (expanded !== value) {
+      textNode.nodeValue = expanded
+    }
+  }
+}
+
 /** Run Upmath replacement on preview markdown; leave fenced/inline code alone. */
 export function processMarkdownLatex(root: HTMLElement): void {
   const api = typeof window !== 'undefined' ? window.S2Latex : undefined
@@ -123,6 +191,7 @@ export function processMarkdownLatex(root: HTMLElement): void {
 
   const masked = maskDollarsInCode(root)
   try {
+    expandInlineDollarMathInTree(root)
     api.processTree(root)
   } finally {
     restoreMaskedDollars(masked)

@@ -7,7 +7,7 @@ async function bootstrap(): Promise<void> {
   try {
     await loadUpmathLatex()
   } catch {
-    // Preview still works; formulas stay as $$...$$ until the script loads.
+    // Preview still works; formulas stay as $...$ / $$...$$ until the script loads.
   }
 
   createRoot(document.getElementById('root')!).render(

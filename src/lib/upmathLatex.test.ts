@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
+  expandInlineDollarMath,
   flushMarkdownLatex,
   latexZoomForFontSize,
   processMarkdownLatex,
@@ -12,6 +13,30 @@ describe('latexZoomForFontSize', () => {
     expect(latexZoomForFontSize(16)).toBe(1)
     expect(latexZoomForFontSize(24)).toBe(1.5)
     expect(latexZoomForFontSize(12)).toBe(0.75)
+  })
+})
+
+describe('expandInlineDollarMath', () => {
+  it('expands single-dollar inline math to $$...$$', () => {
+    expect(expandInlineDollarMath('inline $E=mc^2$ here')).toBe(
+      'inline $$E=mc^2$$ here',
+    )
+  })
+
+  it('leaves display $$...$$ unchanged', () => {
+    expect(expandInlineDollarMath('$$a+b$$')).toBe('$$a+b$$')
+    expect(expandInlineDollarMath('before $$x$$ after')).toBe('before $$x$$ after')
+  })
+
+  it('does not treat unmatched or currency-like single $ as math', () => {
+    expect(expandInlineDollarMath('costs $12')).toBe('costs $12')
+    expect(expandInlineDollarMath('$')).toBe('$')
+  })
+
+  it('can mix inline $ and display $$ in one string', () => {
+    expect(expandInlineDollarMath('see $x$ then $$y$$')).toBe(
+      'see $$x$$ then $$y$$',
+    )
   })
 })
 
@@ -31,7 +56,30 @@ describe('processMarkdownLatex', () => {
     expect(processTree).toHaveBeenCalledWith(root)
   })
 
-  it('masks $$ inside code so processTree does not see them', () => {
+  it('expands $...$ to $$...$$ before processTree', () => {
+    const seen: string[] = []
+    window.S2Latex = {
+      processTree(root) {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+        let node = walker.nextNode()
+        while (node) {
+          seen.push(node.nodeValue ?? '')
+          node = walker.nextNode()
+        }
+      },
+    }
+
+    const root = document.createElement('div')
+    root.innerHTML = '<p>inline $x^2$ here</p>'
+    processMarkdownLatex(root)
+
+    expect(seen.join('\0')).toContain('$$x^2$$')
+    expect(seen.some((text) => text.includes('$x^2$') && !text.includes('$$x^2$$'))).toBe(
+      false,
+    )
+  })
+
+  it('masks $ inside code so processTree does not see them', () => {
     const seen: string[] = []
     window.S2Latex = {
       processTree(root) {
@@ -46,14 +94,16 @@ describe('processMarkdownLatex', () => {
 
     const root = document.createElement('div')
     root.innerHTML =
-      '<p>math $$a$$</p><pre><code>keep $$b$$ literal</code></pre>'
+      '<p>math $a$ and $$b$$</p><pre><code>keep $c$ and $$d$$ literal</code></pre>'
     processMarkdownLatex(root)
 
-    expect(seen.some((text) => text.includes('$$a$$') || text.includes('a'))).toBe(
-      true,
-    )
-    expect(seen.join('\0')).not.toContain('$$b$$')
-    expect(root.querySelector('code')?.textContent).toContain('$$b$$')
+    const joined = seen.join('\0')
+    expect(joined).toContain('$$a$$')
+    expect(joined).toContain('$$b$$')
+    expect(joined).not.toContain('$c$')
+    expect(joined).not.toContain('$$d$$')
+    expect(root.querySelector('code')?.textContent).toContain('$c$')
+    expect(root.querySelector('code')?.textContent).toContain('$$d$$')
   })
 })
 
